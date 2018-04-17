@@ -1,0 +1,47 @@
+Router1
+----------------------------------------------------------------------------------
+
+conf t
+
+ip routing
+
+router rip
+version 2
+network 100.0.0.0
+network 10.0.0.0
+network 192.168.100.0
+exit
+
+int f1/0
+ip address 10.0.6.10 255.255.255.252
+ipv6 address 3100:a:a:5506::10/126
+no shut
+exit
+
+int f1/1
+ip address 10.0.6.14 255.255.255.252
+ipv6 address 3100:a:a:5506::F/126
+no shut
+exit
+
+
+int f2/0
+ip address 192.168.0.1 255.255.255.252
+ipv6 address 3100:a:a:5507::1/126
+no shut
+exit
+
+!NAT/PAT
+conf t
+ip nat pool MYNATPOOL 100.1.3.192 100.1.3.207 netmask 255.255.255.240
+access-list 2 permit 10.0.0.0 0.0.255.255
+ip nat inside source list 2 pool MYNATPOLL overload
+int f1/0
+ip nat inside
+int f1/1
+ip nat inside
+int f2/0
+ip nat outside
+
+end
+write mem

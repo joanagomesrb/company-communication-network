@@ -1,0 +1,47 @@
+SWL3C1
+------------------------------------------------------------------
+
+conf t
+
+ip routing
+ipv6 unicast-routing
+
+router rip
+version 2
+network 100.0.0.0
+network 10.0.0.0
+network 192.168.100.0
+exit
+
+int f0/0
+ip address 10.0.6.18 255.255.255.252
+ipv6 address 3100:a:a:5506::12/126
+ipv6 rip proc1 enable
+no shut
+exit
+
+int f0/1
+ip address 10.0.6.26 255.255.255.252
+ipv6 address 3100:a:a:5506::1A/126
+ipv6 rip proc1 enable
+no shut
+exit
+
+int f1/2
+no switchport
+ip address 10.0.6.9 255.255.255.252
+ipv6 address 3100:a:a:5506::9/126
+ipv6 rip proc1 enable
+no shut
+exit
+
+int f1/3
+no switchport
+ip address 10.0.6.5 255.255.255.252
+ipv6 address 3100:a:a:5506::5/126
+ipv6 rip proc1 enable
+no shut
+exit
+
+end
+write mem

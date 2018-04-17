@@ -1,0 +1,24 @@
+ISP
+-----------------------------------------------------
+
+conf t
+
+int f1/0
+ip address 192.168.0.2 255.255.255.252
+no shut
+exit
+
+
+int f1/1
+ip address 200.0.0.2 255.255.255.252
+ipv6 address 3000:b:b:b::2/126
+no shut
+exit
+
+conf t
+!ip route 0.0.0.0 0.0.0.0 192.168.0.1
+ip route 10.0.0.0 255.255.255.0 192.168.0.1
+
+
+end
+write mem

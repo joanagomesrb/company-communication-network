@@ -1,0 +1,27 @@
+RouterA
+-----------------------------------------------------
+
+conf t
+
+ip routing
+
+router rip
+version 2
+network 100.0.0.0
+network 10.0.0.0
+network 192.168.100.0
+exit
+
+int f1/0
+ip address 10.0.6.2 255.255.255.252
+ipv6 address 3100:a:a:5506::02/126
+no shut
+exit
+
+int f1/1
+ip address 192.168.100.2 255.255.255.252
+no shut
+exit
+
+end
+write mem
